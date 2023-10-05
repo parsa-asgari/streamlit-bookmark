@@ -11,7 +11,7 @@ _RELEASE = True
 
 if not _RELEASE:
     _component_func = components.declare_component(
-        "streamlit_feedback", url="http://localhost:3001"
+        "streamlit_bookmark", url="http://localhost:3001"
     )
 else:
     # When we're distributing a production version of the component, we'll
@@ -19,7 +19,7 @@ else:
     # build directory:
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/build")
-    _component_func = components.declare_component("streamlit_feedback", path=build_dir)
+    _component_func = components.declare_component("streamlit_bookmark", path=build_dir)
 
 
 def streamlit_bookmark(

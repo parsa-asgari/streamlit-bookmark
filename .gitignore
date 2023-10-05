@@ -2,7 +2,6 @@ venv/
 streamlit_bookmark/frontend/node_modules
 streamlit_bookmark/frontend/build
 *.egg-info/
-build/
 dist/
 .streamlit/secrets.toml
 __pycache__/
