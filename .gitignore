@@ -1,6 +1,5 @@
 venv/
 streamlit_bookmark/frontend/node_modules
-streamlit_bookmark/frontend/build
 *.egg-info/
 dist/
 .streamlit/secrets.toml
