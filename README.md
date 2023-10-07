@@ -56,4 +56,4 @@ def streamlit_bookmark(
 
     """
 ```
-For the code example, see [here](streamlit_bookmark/examples.py).
+For the code example, see [here](streamlit_app_example.py).
