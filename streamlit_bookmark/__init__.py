@@ -23,8 +23,8 @@ else:
 
 
 def streamlit_bookmark(
-    on_submit=None,
-    disable_component=None,
+    on_submit,
+    disable_component,
     key=None,
 ):
     """Creates a new instance of "streamlit_bookmark". Receives the current bookmark status for a given Streamlit compnent and calls a function upon submission.
@@ -32,10 +32,10 @@ def streamlit_bookmark(
     Parameters
     ----------
     on_submit: callable
-        An optional callback invoked when feedback is submitted. This function must accept at least one argument, the feedback response dict,
+        A callback invoked when feedback is submitted. This function must accept at least one argument, the feedback response dict,
         allowing you to save the feedback to a database for example. Additional arguments can be specified using `args` and `kwargs`.
-    disable_component: str
-        An optional boolean to disable the component. Can be used to pass state from one component to another.
+    disable_component: boolean
+        A boolean to disable the component. Can be used to pass state from one component to another.
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
