@@ -20,9 +20,16 @@ def streamlit_bookmark_example(streamlit_bookmark, debug=False):
     st.title("💬 Chatbot")
 
     if "messages" not in st.session_state:
-        st.session_state["messages"] = [
-            {"role": "assistant", "content": "How can I help you?"}
-        ]
+        st.session_state.messages = [{'role': 'assistant', 'content': 'How can I help you?'}, {'role': 'user', 'content': 'g'}, {'role': 'assistant', 'content': 'dummy response'}, {'role': 'user', 'content': 'g'}, {'role': 'assistant', 'content': 'dummy response'}, {'role': 'user', 'content': 'g'}, {'role': 'assistant', 'content': 'dummy response'}]
+
+        # Dummy statse for the bookmarks
+        st.session_state['bookmark_1'] = {'bookmark': True}
+        st.session_state['bookmark_2'] = {'bookmark': False}
+        st.session_state['bookmark_3'] = {'bookmark': True}
+        # Dummy-initial states for the bookmarks
+        st.session_state['bookmark_1_last'] = True
+        st.session_state['bookmark_2_last'] = False
+        st.session_state['bookmark_3_last'] = True
 
     messages = st.session_state.messages
 
@@ -31,23 +38,23 @@ def streamlit_bookmark_example(streamlit_bookmark, debug=False):
     for n, msg in enumerate(messages):
         st.chat_message(msg["role"]).write(msg["content"])
         if msg["role"] == "assistant" and n > 1:
-            feedback_key = f"bookmark_{int(n/2)}"
+            bookmark_key = f"bookmark_{int(n/2)}"
 
-            if feedback_key not in st.session_state:
-                st.session_state[feedback_key] = {"bookmark": False}
+            if bookmark_key not in st.session_state:
+                st.session_state[bookmark_key] = {"bookmark": False}
 
             # Ensures that the bookmark component's state does not "reset" when new responses are submitted by the user and the chat contunues
-            disable_component = (
-                st.session_state[feedback_key].get("bookmark")
-                if st.session_state[feedback_key]
+            component_state = (
+                st.session_state[bookmark_key].get("bookmark")
+                if st.session_state[bookmark_key]
                 else None
             )
 
             # Here is the actual usage of the streamlit_bookmark component
             feedback = streamlit_bookmark(
                 on_submit=_submit_bookmark,
-                key=feedback_key,
-                disable_component=disable_component,
+                key=bookmark_key,
+                component_state=component_state
             )
 
     # Executes only if the first text-input by the user is submitted.
@@ -64,7 +71,9 @@ def streamlit_bookmark_example(streamlit_bookmark, debug=False):
             messages.append({"role": "assistant", "content": response})
             st.write(response)
 
-        streamlit_bookmark(key=f"bookmark_{int(len(messages)/2)}")
+        streamlit_bookmark(on_submit=_submit_bookmark, key=f"bookmark_{int(len(messages)/2)}", component_state=False)
+    
+
 
 
 # The main function's execution

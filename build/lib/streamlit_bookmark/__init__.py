@@ -23,8 +23,8 @@ else:
 
 
 def streamlit_bookmark(
-    on_submit,
-    component_state,
+    on_submit=None,
+    disable_component=None,
     key=None,
 ):
     """Creates a new instance of "streamlit_bookmark". Receives the current bookmark status for a given Streamlit compnent and calls a function upon submission.
@@ -32,10 +32,10 @@ def streamlit_bookmark(
     Parameters
     ----------
     on_submit: callable
-        A callback invoked when feedback is submitted. This function must accept at least one argument, the feedback response dict,
+        An optional callback invoked when feedback is submitted. This function must accept at least one argument, the feedback response dict,
         allowing you to save the feedback to a database for example. Additional arguments can be specified using `args` and `kwargs`.
-    component_state: boolean
-        A boolean to set the state of the bookmark.
+    disable_component: str
+        An optional boolean to disable the component. Can be used to pass state from one component to another.
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
@@ -51,25 +51,25 @@ def streamlit_bookmark(
     # Initiate dict-keys or variables in case they are not defined
     if key is None:
         key = "bookmark_1"
-    if f"{key}_last" not in st.session_state:
-        st.session_state[f"{key}_last"] = False
+    if f"bookmark_{key}" not in st.session_state:
+        st.session_state[f"bookmark_{key}"] = False
     if f"{key}" not in st.session_state:
         st.session_state[f"{key}"] = {"bookmark": False}
 
     # Invokes the react frontend's side
     component_value = _component_func(
         key=key,
-        component_state=component_state,
+        disable_component=disable_component,
         default=None,
     )
 
     # Checks to see if the bookmark's state has changed or not.
     # If so, invoke the on_submit function
     ## Current State != Previous State
-    if component_value["bookmark"] != st.session_state[f"{key}_last"]:
-        on_submit(bookmark_state=component_value["bookmark"], key=f"{key}_last")
+    if component_value["bookmark"] != st.session_state[f"bookmark_{key}"]:
+        on_submit(bookmark_state=component_value["bookmark"], key=f"bookmark_{key}")
 
     # Updates the current bookmarking status for the {key} component
-    st.session_state[f"{key}_last"] = component_value["bookmark"]
+    st.session_state[f"bookmark_{key}"] = component_value["bookmark"]
 
     return component_value

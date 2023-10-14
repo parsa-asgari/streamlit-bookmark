@@ -12,7 +12,7 @@ class MyComponent extends StreamlitComponentBase {
     return (
       <div>
         <Bookmark
-          disable_component={this.props.args["disable_component"]}
+          component_state={this.props.args["component_state"]}
           default={this.props.args["default"]}
         />
       </div>

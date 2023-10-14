@@ -7,11 +7,12 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 export function BookmarkingWithToggle(props) {
     const [bookmarkSubmitted, setBookmarkSubmitted] = useState(false)
 
+    console.log(props.component_state)
     useEffect(() => {
-        if (props.disable_component){
+        if (props.component_state){
             setBookmarkSubmitted(true);
         }
-    }, [props.disable_component])
+    }, [props.component_state])
 
     const BookmarkHoverColor = () => {
             return "#f44336"
