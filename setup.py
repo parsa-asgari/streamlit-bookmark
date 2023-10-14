@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="streamlit-bookmark",
-    version="0.1.0",
+    version="0.1.1",
     author="Parsa Asgari",
     author_email="parsa.asgari3264@gmail.com",
     description=(
@@ -15,7 +15,7 @@ setuptools.setup(
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/parsa-asgari/streamlit-bookmark",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],
