@@ -7,6 +7,6 @@ export function Bookmark(props) {
         Streamlit.setComponentValue({bookmark});
     };
 
-    return (<BookmarkingWithToggle submitBookmark={submitBookmark} align={"flex-end"}/>)
+    return (<BookmarkingWithToggle submitBookmark={submitBookmark} component_state={props.component_state} align={"flex-end"}/>)
 
 }
